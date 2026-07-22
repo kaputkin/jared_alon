@@ -33,7 +33,7 @@ def load_projects():
     projects.sort(key=lambda x: x.get('title', ''))
     return projects
 
-def render_base(title, content, active_tab=""):
+def render_base(title, content, active_tab="", is_subpage=False):
     base_html = load_template('base.html')
     
     # Replace active tab tokens
@@ -44,6 +44,24 @@ def render_base(title, content, active_tab=""):
         
     base_html = base_html.replace("{{title}}", title)
     base_html = base_html.replace("{{content}}", content)
+    
+    # Adjust paths for relative resolution
+    base_path = "../" if is_subpage else ""
+    
+    # Perform replacement of absolute paths with relative ones
+    replacements = {
+        'href="/assets/': f'href="{base_path}assets/',
+        'src="/assets/': f'src="{base_path}assets/',
+        'href="/index.html': f'href="{base_path}index.html',
+        'href="/projects.html': f'href="{base_path}projects.html',
+        'href="/gallery.html': f'href="{base_path}gallery.html',
+        'href="/about.html': f'href="{base_path}about.html',
+        'href="/projects/': f'href="{base_path}projects/',
+    }
+    
+    for abs_path, rel_path in replacements.items():
+        base_html = base_html.replace(abs_path, rel_path)
+        
     return base_html
 
 def build_index(projects):
@@ -176,7 +194,7 @@ def build_project_details(projects):
         project_content = project_content.replace("{{hero_image}}", p.get('hero_image', ''))
         project_content = project_content.replace("{{project_images}}", detail_images_html)
         
-        rendered = render_base(p.get('title', ''), project_content, active_tab="projects")
+        rendered = render_base(p.get('title', ''), project_content, active_tab="projects", is_subpage=True)
         
         out_path = os.path.join(PROJECTS_OUTPUT_DIR, f"{p['slug']}.html")
         with open(out_path, 'w', encoding='utf-8') as f:
