@@ -1,0 +1,14 @@
+{
+  "title": "Chair No. 1",
+  "slug": "chair-no-1",
+  "category": "Seating",
+  "materials": "White Oak, Vegetable-Tanned Leather",
+  "dimensions": "W 19\" x D 20\" x H 31\" (Seat H 18\")",
+  "featured": true,
+  "description": "An exploration of joinery, material tension, and profile. Chair No. 1 features a solid white oak frame with hand-shaped cylindrical back supports that lock the backrest into place. A single continuous piece of premium vegetable-tanned leather forms the seat, suspended across the frame to establish a firm yet responsive sit. Built with traditional mortise-and-tenon joints, this piece is designed to age gracefully, with the leather developing a rich patina over time.",
+  "hero_image": "/assets/images/chair-wood-leather-back.jpg",
+  "images": [
+    "/assets/images/chair-wood-leather-back.jpg",
+    "/assets/images/chair-wood-leather-detail.jpg"
+  ]
+}

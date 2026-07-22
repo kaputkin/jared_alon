@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jared Alon - Handcrafted furniture design and studio portfolio. Modern, sculptural, and heirloom-quality solid-wood furniture.">
+    <title>About | Jared Alon</title>
+    <!-- Google Fonts: Poppins (Body) and Jost (Futura-like alternative for fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/index.html" class="logo">JARED ALON</a>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="/index.html" class="nav-link ">Home</a>
+                <a href="/projects.html" class="nav-link ">Projects</a>
+                <a href="/gallery.html" class="nav-link ">Gallery</a>
+                <a href="/about.html" class="nav-link active">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+    <section class="about-section container">
+        <div class="about-grid">
+            <div class="about-image-wrapper">
+                <img src="/assets/images/chair-wood-leather-back.jpg" alt="Jared Alon Studio" class="about-image">
+            </div>
+            <div class="about-content">
+                <h1>The Studio</h1>
+                <div class="about-text">
+                    <p><strong>Jared Alon</strong> is a Hudson Valley-based design and woodworking studio specializing in heirloom-quality, sculptural furniture. Founded on the principles of material integrity, structural clarity, and meticulous attention to detail, each piece is engineered and crafted by hand.</p>
+                    <p>Our philosophy is centered on the relationship between materials. We combine select domestic hardwoods—primarily Walnut, Oak, and Maple—with tactile, organic elements such as vegetable-tanned leather, cork, and wool bouclé. By balancing geometric profiles with soft, hand-shaped details, we create furniture that feels structurally robust yet sculptural and light.</p>
+                    <p>Every joint, mortise, and tenon is made to endure generations, prioritizing sustainable craft and local sourcing above all.</p>
+                </div>
+                
+                <div class="contact-block" id="contact">
+                    <h3>Contact & Inquiries</h3>
+                    <div class="contact-info-grid">
+                        <div class="contact-item">
+                            <h4>Studio Address</h4>
+                            <p>Beacon, New York</p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>General Inquiries</h4>
+                            <p>studio@jaredalon.com</p>
+                        </div>
+                        <div class="contact-item">
+                            <h4>Instagram</h4>
+                            <p>@jaredalon.design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>JARED ALON</h3>
+                <p>Furniture Design & Craftsmanship</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Jared Alon. All rights reserved.</p>
+                <p>Handcrafted in Hudson Valley, NY</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !expanded);
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jared Alon - Handcrafted furniture design and studio portfolio. Modern, sculptural, and heirloom-quality solid-wood furniture.">
+    <title>Chair No. 1 | Jared Alon</title>
+    <!-- Google Fonts: Poppins (Body) and Jost (Futura-like alternative for fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/index.html" class="logo">JARED ALON</a>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="/index.html" class="nav-link ">Home</a>
+                <a href="/projects.html" class="nav-link active">Projects</a>
+                <a href="/gallery.html" class="nav-link ">Gallery</a>
+                <a href="/about.html" class="nav-link ">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="project-detail-section">
+    <div class="container">
+        <div class="project-detail-header">
+            <a href="/projects.html" class="back-link">&larr; Back to Projects</a>
+        </div>
+        
+        <div class="project-detail-grid">
+            <div class="project-gallery">
+                <div class="project-hero-img-wrapper">
+                    <img src="/assets/images/chair-wood-leather-back.jpg" alt="Chair No. 1" class="project-hero-img">
+                </div>
+                <div class="project-images-grid">
+                    
+            <div class="project-detail-img-wrapper">
+                <img src="/assets/images/chair-wood-leather-detail.jpg" alt="Chair No. 1 Detail" class="project-detail-img" loading="lazy">
+            </div>
+            
+                </div>
+            </div>
+            
+            <div class="project-info">
+                <span class="project-category">Seating</span>
+                <h1 class="project-title">Chair No. 1</h1>
+                
+                <div class="project-description">
+                    <p>An exploration of joinery, material tension, and profile. Chair No. 1 features a solid white oak frame with hand-shaped cylindrical back supports that lock the backrest into place. A single continuous piece of premium vegetable-tanned leather forms the seat, suspended across the frame to establish a firm yet responsive sit. Built with traditional mortise-and-tenon joints, this piece is designed to age gracefully, with the leather developing a rich patina over time.</p>
+                </div>
+                
+                <div class="project-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Materials</span>
+                        <span class="spec-value">White Oak, Vegetable-Tanned Leather</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Dimensions</span>
+                        <span class="spec-value">W 19" x D 20" x H 31" (Seat H 18")</span>
+                    </div>
+                </div>
+                
+                <div class="project-inquire">
+                    <a href="/about.html#contact" class="btn btn-primary">Inquire About This Piece</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>JARED ALON</h3>
+                <p>Furniture Design & Craftsmanship</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Jared Alon. All rights reserved.</p>
+                <p>Handcrafted in Hudson Valley, NY</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !expanded);
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "title": "Chair No. 2",
+  "slug": "chair-no-2",
+  "category": "Seating",
+  "materials": "Lacquered Bent Plywood, Natural Cork",
+  "dimensions": "W 21\" x D 18\" x H 28\" (Seat H 17.5\")",
+  "featured": true,
+  "description": "A sculptural study in color and geometry. Chair No. 2 is crafted from bent plywood finished in a sky blue lacquer, contrasting with a seat lined in natural cork. The dramatic waterfall front edge cascades downwards, creating an asymmetrical silhouette that shifts as you walk around the piece. The interior volume serves as both a structural anchor and a playful storage cavity.",
+  "hero_image": "/assets/images/chair-blue-cork.jpg",
+  "images": [
+    "/assets/images/chair-blue-cork.jpg"
+  ]
+}

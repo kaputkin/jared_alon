@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jared Alon - Handcrafted furniture design and studio portfolio. Modern, sculptural, and heirloom-quality solid-wood furniture.">
+    <title>Gallery | Jared Alon</title>
+    <!-- Google Fonts: Poppins (Body) and Jost (Futura-like alternative for fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/index.html" class="logo">JARED ALON</a>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="/index.html" class="nav-link ">Home</a>
+                <a href="/projects.html" class="nav-link ">Projects</a>
+                <a href="/gallery.html" class="nav-link active">Gallery</a>
+                <a href="/about.html" class="nav-link ">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+    <section class="section-padding container">
+        <div class="section-header">
+            <div>
+                <h1 class="section-title">Gallery</h1>
+                <span class="section-subtitle">Visuals from the Workshop & Collection</span>
+            </div>
+        </div>
+        <div class="gallery-grid">
+            
+        <div class="gallery-item">
+            <img src="/assets/images/chair-blue-cork.jpg" alt="Chair No. 2 - Plywood & Cork" class="gallery-img" loading="lazy">
+            <div class="gallery-overlay">
+                <span class="gallery-caption">Chair No. 2 - Plywood & Cork</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="/assets/images/chair-wood-leather-back.jpg" alt="Chair No. 1 - Profile" class="gallery-img" loading="lazy">
+            <div class="gallery-overlay">
+                <span class="gallery-caption">Chair No. 1 - Profile</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="/assets/images/chair-wood-leather-detail.jpg" alt="Chair No. 1 - Joint Detail" class="gallery-img" loading="lazy">
+            <div class="gallery-overlay">
+                <span class="gallery-caption">Chair No. 1 - Joint Detail</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="/assets/images/daybed-detail.jpg" alt="Daybed No. 1 - Walnut Frame Detail" class="gallery-img" loading="lazy">
+            <div class="gallery-overlay">
+                <span class="gallery-caption">Daybed No. 1 - Walnut Frame Detail</span>
+            </div>
+        </div>
+        
+        <div class="gallery-item">
+            <img src="/assets/images/totem-lamp.jpg" alt="Totem Lamp" class="gallery-img" loading="lazy">
+            <div class="gallery-overlay">
+                <span class="gallery-caption">Totem Lamp</span>
+            </div>
+        </div>
+        
+        </div>
+    </section>
+    
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>JARED ALON</h3>
+                <p>Furniture Design & Craftsmanship</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Jared Alon. All rights reserved.</p>
+                <p>Handcrafted in Hudson Valley, NY</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !expanded);
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "title": "Totem Lamp",
+  "slug": "totem-lamp",
+  "category": "Lighting",
+  "materials": "Hand-turned Maple, Powder-coated Steel, Aluminum",
+  "dimensions": "W 18\" x D 12\" x H 48\"",
+  "featured": true,
+  "hero": true,
+  "description": "A sculptural light fixture designed to diffuse warm, ambient illumination. The Totem Lamp features five hand-turned solid maple columns mounted on a powder-coated steel oval reflector in a muted terracotta-rose tone. The cylindrical columns hide warm LED sources, casting light back onto the curved steel plate and creating a glowing, totem-like silhouette. Grounded by a heavy cast iron circular base.",
+  "hero_image": "/assets/images/totem-lamp.jpg",
+  "images": [
+    "/assets/images/totem-lamp.jpg"
+  ]
+}

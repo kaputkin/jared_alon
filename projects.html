@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Jared Alon - Handcrafted furniture design and studio portfolio. Modern, sculptural, and heirloom-quality solid-wood furniture.">
+    <title>Projects | Jared Alon</title>
+    <!-- Google Fonts: Poppins (Body) and Jost (Futura-like alternative for fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="/index.html" class="logo">JARED ALON</a>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+            <nav class="nav-menu" id="navMenu">
+                <a href="/index.html" class="nav-link ">Home</a>
+                <a href="/projects.html" class="nav-link active">Projects</a>
+                <a href="/gallery.html" class="nav-link ">Gallery</a>
+                <a href="/about.html" class="nav-link ">About</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+    <section class="section-padding container">
+        <div class="section-header">
+            <div>
+                <h1 class="section-title">All Projects</h1>
+                <span class="section-subtitle">The Complete Collection</span>
+            </div>
+        </div>
+        <div class="projects-grid">
+            
+        <article class="project-card">
+            <a href="/projects/chair-no-1.html" class="project-card-image-link">
+                <img src="/assets/images/chair-wood-leather-back.jpg" alt="Chair No. 1" class="project-card-image" loading="lazy">
+            </a>
+            <div class="project-card-info">
+                <div>
+                    <h3 class="project-card-title">Chair No. 1</h3>
+                    <span class="project-card-category">Seating</span>
+                </div>
+                <a href="/projects/chair-no-1.html" class="project-card-link">View Detail</a>
+            </div>
+        </article>
+        
+        <article class="project-card">
+            <a href="/projects/chair-no-2.html" class="project-card-image-link">
+                <img src="/assets/images/chair-blue-cork.jpg" alt="Chair No. 2" class="project-card-image" loading="lazy">
+            </a>
+            <div class="project-card-info">
+                <div>
+                    <h3 class="project-card-title">Chair No. 2</h3>
+                    <span class="project-card-category">Seating</span>
+                </div>
+                <a href="/projects/chair-no-2.html" class="project-card-link">View Detail</a>
+            </div>
+        </article>
+        
+        <article class="project-card">
+            <a href="/projects/daybed-no-1.html" class="project-card-image-link">
+                <img src="/assets/images/daybed-detail.jpg" alt="Daybed No. 1" class="project-card-image" loading="lazy">
+            </a>
+            <div class="project-card-info">
+                <div>
+                    <h3 class="project-card-title">Daybed No. 1</h3>
+                    <span class="project-card-category">Lounge</span>
+                </div>
+                <a href="/projects/daybed-no-1.html" class="project-card-link">View Detail</a>
+            </div>
+        </article>
+        
+        <article class="project-card">
+            <a href="/projects/totem-lamp.html" class="project-card-image-link">
+                <img src="/assets/images/totem-lamp.jpg" alt="Totem Lamp" class="project-card-image" loading="lazy">
+            </a>
+            <div class="project-card-info">
+                <div>
+                    <h3 class="project-card-title">Totem Lamp</h3>
+                    <span class="project-card-category">Lighting</span>
+                </div>
+                <a href="/projects/totem-lamp.html" class="project-card-link">View Detail</a>
+            </div>
+        </article>
+        
+        </div>
+    </section>
+    
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>JARED ALON</h3>
+                <p>Furniture Design & Craftsmanship</p>
+            </div>
+            <div class="footer-meta">
+                <p>&copy; 2026 Jared Alon. All rights reserved.</p>
+                <p>Handcrafted in Hudson Valley, NY</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !expanded);
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

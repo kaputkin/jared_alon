@@ -1,0 +1,42 @@
+<section class="project-detail-section">
+    <div class="container">
+        <div class="project-detail-header">
+            <a href="/projects.html" class="back-link">&larr; Back to Projects</a>
+        </div>
+        
+        <div class="project-detail-grid">
+            <div class="project-gallery">
+                <div class="project-hero-img-wrapper">
+                    <img src="{{hero_image}}" alt="{{title}}" class="project-hero-img">
+                </div>
+                <div class="project-images-grid">
+                    {{project_images}}
+                </div>
+            </div>
+            
+            <div class="project-info">
+                <span class="project-category">{{category}}</span>
+                <h1 class="project-title">{{title}}</h1>
+                
+                <div class="project-description">
+                    <p>{{description}}</p>
+                </div>
+                
+                <div class="project-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Materials</span>
+                        <span class="spec-value">{{materials}}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Dimensions</span>
+                        <span class="spec-value">{{dimensions}}</span>
+                    </div>
+                </div>
+                
+                <div class="project-inquire">
+                    <a href="/about.html#contact" class="btn btn-primary">Inquire About This Piece</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
