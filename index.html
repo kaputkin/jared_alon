@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
-    <header class="site-header">
+<body class="page-home">
+    <header class="site-header site-header--overlay">
         <div class="header-container">
             <a href="index.html" class="logo">JARED ALON</a>
             <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
@@ -30,17 +30,12 @@
 
     <main class="main-content">
         
-        <div class="container hero-wrapper">
-            <section class="hero-section">
-                <div class="hero-image-container">
-                    <img src="assets/images/totem-lamp.jpg" alt="Totem Lamp" class="hero-image">
-                </div>
-            </section>
+    <section class="hero-section">
+        <div class="hero-image-container">
+            <img src="assets/images/studio-hero.png" alt="Jared Alon Studio" class="hero-image">
         </div>
-        
-    <section class="statement-section">
-        <div class="container">
-            <h2 class="statement-text">Artisanal furniture combining modern sculptural forms with traditional joinery, handcrafted in the Hudson Valley.</h2>
+        <div class="hero-content">
+            <h1 class="hero-title">Contemporary Designer &amp; Custom Furniture</h1>
         </div>
     </section>
     
@@ -122,6 +117,21 @@
             navMenu.classList.toggle('active');
             menuToggle.classList.toggle('active');
         });
+
+        // Home hero: transparent header over cover, solid sticky header after scroll
+        const overlayHeader = document.querySelector('.site-header--overlay');
+        const heroSection = document.querySelector('.hero-section');
+
+        if (overlayHeader && heroSection) {
+            const updateHeaderState = () => {
+                const heroBottom = heroSection.getBoundingClientRect().bottom;
+                overlayHeader.classList.toggle('site-header--scrolled', heroBottom <= overlayHeader.offsetHeight);
+            };
+
+            window.addEventListener('scroll', updateHeaderState, { passive: true });
+            window.addEventListener('resize', updateHeaderState);
+            updateHeaderState();
+        }
     </script>
 </body>
 </html>

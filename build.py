@@ -33,7 +33,7 @@ def load_projects():
     projects.sort(key=lambda x: x.get('title', ''))
     return projects
 
-def render_base(title, content, active_tab="", is_subpage=False):
+def render_base(title, content, active_tab="", is_subpage=False, header_overlay=False):
     base_html = load_template('base.html')
     
     # Replace active tab tokens
@@ -44,6 +44,8 @@ def render_base(title, content, active_tab="", is_subpage=False):
         
     base_html = base_html.replace("{{title}}", title)
     base_html = base_html.replace("{{content}}", content)
+    base_html = base_html.replace("{{body_class}}", "page-home" if header_overlay else "")
+    base_html = base_html.replace("{{header_class}}", "site-header--overlay" if header_overlay else "")
     
     # Adjust paths for relative resolution
     base_path = "../" if is_subpage else ""
@@ -66,27 +68,14 @@ def render_base(title, content, active_tab="", is_subpage=False):
 
 def build_index(projects):
     featured = [p for p in projects if p.get('featured', False)]
-    # Check for explicit hero project, otherwise use first featured
-    hero_project = next((p for p in projects if p.get('hero', False)), None)
-    if not hero_project:
-        hero_project = featured[0] if featured else (projects[0] if projects else None)
-    
-    hero_html = ""
-    if hero_project:
-        hero_html = f"""
-        <div class="container hero-wrapper">
-            <section class="hero-section">
-                <div class="hero-image-container">
-                    <img src="{hero_project['hero_image']}" alt="{hero_project['title']}" class="hero-image">
-                </div>
-            </section>
+
+    hero_html = """
+    <section class="hero-section">
+        <div class="hero-image-container">
+            <img src="/assets/images/studio-hero.png" alt="Jared Alon Studio" class="hero-image">
         </div>
-        """
-        
-    statement_html = """
-    <section class="statement-section">
-        <div class="container">
-            <h2 class="statement-text">Artisanal furniture combining modern sculptural forms with traditional joinery, handcrafted in the Hudson Valley.</h2>
+        <div class="hero-content">
+            <h1 class="hero-title">Contemporary Designer &amp; Custom Furniture</h1>
         </div>
     </section>
     """
@@ -124,8 +113,8 @@ def build_index(projects):
     </section>
     """
     
-    full_content = hero_html + statement_html + featured_html
-    rendered = render_base("Home", full_content, active_tab="")
+    full_content = hero_html + featured_html
+    rendered = render_base("Home", full_content, active_tab="", header_overlay=True)
     
     with open(os.path.join(OUTPUT_DIR, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(rendered)

@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
-    <header class="site-header">
+<body class="">
+    <header class="site-header ">
         <div class="header-container">
             <a href="../index.html" class="logo">JARED ALON</a>
             <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
@@ -102,6 +102,21 @@
             navMenu.classList.toggle('active');
             menuToggle.classList.toggle('active');
         });
+
+        // Home hero: transparent header over cover, solid sticky header after scroll
+        const overlayHeader = document.querySelector('.site-header--overlay');
+        const heroSection = document.querySelector('.hero-section');
+
+        if (overlayHeader && heroSection) {
+            const updateHeaderState = () => {
+                const heroBottom = heroSection.getBoundingClientRect().bottom;
+                overlayHeader.classList.toggle('site-header--scrolled', heroBottom <= overlayHeader.offsetHeight);
+            };
+
+            window.addEventListener('scroll', updateHeaderState, { passive: true });
+            window.addEventListener('resize', updateHeaderState);
+            updateHeaderState();
+        }
     </script>
 </body>
 </html>
