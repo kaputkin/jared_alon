@@ -33,16 +33,17 @@ def load_projects():
     projects.sort(key=lambda x: x.get('title', ''))
     return projects
 
-def render_base(title, content, active_tab="", is_subpage=False, header_overlay=False):
+def render_base(title, content, active_tab="", is_subpage=False, header_overlay=False, hero_content=""):
     base_html = load_template('base.html')
     
     # Replace active tab tokens
-    tabs = ['home', 'projects', 'gallery', 'about']
+    tabs = ['projects', 'available', 'about']
     for tab in tabs:
         active_class = "active" if tab == active_tab else ""
         base_html = base_html.replace(f"{{{{nav_active_{tab}}}}}", active_class)
         
     base_html = base_html.replace("{{title}}", title)
+    base_html = base_html.replace("{{hero_content}}", hero_content)
     base_html = base_html.replace("{{content}}", content)
     base_html = base_html.replace("{{body_class}}", "page-home" if header_overlay else "")
     base_html = base_html.replace("{{header_class}}", "site-header--overlay" if header_overlay else "")
@@ -99,22 +100,25 @@ def build_index(projects):
         """)
         
     featured_html = f"""
-    <section class="section-padding container">
-        <div class="section-header">
-            <div>
-                <h2 class="section-title">Selected Work</h2>
-                <span class="section-subtitle">Featured Studio Pieces</span>
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Selected Work</h2>
+                    <span class="section-subtitle">Featured Studio Pieces</span>
+                </div>
+                <a href="/projects.html" class="btn btn-outline" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">View All</a>
             </div>
-            <a href="/projects.html" class="btn btn-outline" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">View All</a>
-        </div>
-        <div class="projects-grid">
-            {"".join(grid_items)}
+            <div class="projects-grid">
+                {"".join(grid_items)}
+            </div>
         </div>
     </section>
     """
     
-    full_content = hero_html + featured_html
-    rendered = render_base("Home", full_content, active_tab="", header_overlay=True)
+    full_content = featured_html
+    rendered = render_base("Home", full_content, active_tab="", header_overlay=True, hero_content=hero_html)
+    # No need for nav_active_home since Home link is removed; logo already links to index
     
     with open(os.path.join(OUTPUT_DIR, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(rendered)
@@ -124,29 +128,19 @@ def build_projects_list(projects):
     grid_items = []
     for p in projects:
         grid_items.append(f"""
-        <article class="project-card">
+        <article class="project-card project-card--overlay">
             <a href="/projects/{p['slug']}.html" class="project-card-image-link">
                 <img src="{p['hero_image']}" alt="{p['title']}" class="project-card-image" loading="lazy">
-            </a>
-            <div class="project-card-info">
-                <div>
+                <div class="project-card-overlay">
                     <h3 class="project-card-title">{p['title']}</h3>
-                    <span class="project-card-category">{p['category']}</span>
                 </div>
-                <a href="/projects/{p['slug']}.html" class="project-card-link">View Detail</a>
-            </div>
+            </a>
         </article>
         """)
         
     content = f"""
     <section class="section-padding container">
-        <div class="section-header">
-            <div>
-                <h1 class="section-title">All Projects</h1>
-                <span class="section-subtitle">The Complete Collection</span>
-            </div>
-        </div>
-        <div class="projects-grid">
+        <div class="projects-grid projects-grid--tight">
             {"".join(grid_items)}
         </div>
     </section>
@@ -238,7 +232,7 @@ def build_gallery(projects):
     </section>
     """
     
-    rendered = render_base("Gallery", content, active_tab="gallery")
+    rendered = render_base("Available", content, active_tab="available")
     with open(os.path.join(OUTPUT_DIR, 'gallery.html'), 'w', encoding='utf-8') as f:
         f.write(rendered)
     print("Built gallery.html")

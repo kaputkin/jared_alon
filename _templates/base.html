@@ -1,49 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Jared Alon - Handcrafted furniture design and studio portfolio. Modern, sculptural, and heirloom-quality solid-wood furniture.">
+    <meta name="description"
+        content="Jared Alon - Handcrafted furniture design and studio portfolio. Modern, sculptural, and heirloom-quality solid-wood furniture.">
     <title>{{title}} | Jared Alon</title>
     <!-- Google Fonts: Poppins (Body) and Jost (Futura-like alternative for fallback) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
+
 <body class="{{body_class}}">
-    <header class="site-header {{header_class}}">
-        <div class="header-container">
-            <a href="/index.html" class="logo">JARED ALON</a>
-            <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
-            <nav class="nav-menu" id="navMenu">
-                <a href="/index.html" class="nav-link {{nav_active_home}}">Home</a>
-                <a href="/projects.html" class="nav-link {{nav_active_projects}}">Projects</a>
-                <a href="/gallery.html" class="nav-link {{nav_active_gallery}}">Gallery</a>
-                <a href="/about.html" class="nav-link {{nav_active_about}}">About</a>
-            </nav>
-        </div>
-    </header>
-
+    {{hero_content}}
     <main class="main-content">
+        <header class="site-header {{header_class}}">
+            <div class="header-container">
+                <a href="/index.html" class="logo">JARED ALON</a>
+                <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <nav class="nav-menu" id="navMenu">
+                    <a href="/projects.html" class="nav-link {{nav_active_projects}}">Projects</a>
+                    <a href="/gallery.html" class="nav-link {{nav_active_available}}">Available</a>
+                    <a href="/about.html" class="nav-link {{nav_active_about}}">About</a>
+                </nav>
+            </div>
+        </header>
         {{content}}
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <h3>JARED ALON</h3>
+                    <p>Furniture Design & Craftsmanship</p>
+                </div>
+                <div class="footer-meta">
+                    <p>&copy; 2026 Jared Alon. All rights reserved.</p>
+                    <p>Handcrafted in Hudson Valley, NY</p>
+                </div>
+            </div>
+        </footer>
     </main>
-
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <h3>JARED ALON</h3>
-                <p>Furniture Design & Craftsmanship</p>
-            </div>
-            <div class="footer-meta">
-                <p>&copy; 2026 Jared Alon. All rights reserved.</p>
-                <p>Handcrafted in Hudson Valley, NY</p>
-            </div>
-        </div>
-    </footer>
 
     <script>
         // Mobile Navigation Toggle
@@ -57,14 +60,61 @@
             menuToggle.classList.toggle('active');
         });
 
-        // Home hero: transparent header over cover, solid sticky header after scroll
+        // Home hero: header starts at bottom of viewport, scrolls up over hero
         const overlayHeader = document.querySelector('.site-header--overlay');
         const heroSection = document.querySelector('.hero-section');
 
         if (overlayHeader && heroSection) {
             const updateHeaderState = () => {
-                const heroBottom = heroSection.getBoundingClientRect().bottom;
-                overlayHeader.classList.toggle('site-header--scrolled', heroBottom <= overlayHeader.offsetHeight);
+                const headerTop = overlayHeader.getBoundingClientRect().top;
+                const headerHeight = overlayHeader.offsetHeight;
+
+                // Header is "scrolled" when it's stuck at the top of the viewport
+                const isScrolled = headerTop <= 0;
+                overlayHeader.classList.toggle('site-header--scrolled', isScrolled);
+
+                if (isScrolled) {
+                    // When pinned at top, let CSS handle everything via site-header--scrolled
+                    overlayHeader.style.backgroundColor = '';
+                    overlayHeader.style.backdropFilter = '';
+                    overlayHeader.querySelectorAll('.logo, .nav-link').forEach(el => {
+                        el.style.color = '';
+                    });
+                    let styleEl = document.getElementById('header-underline-style');
+                    if (styleEl) styleEl.remove();
+                } else {
+                    // Fade from transparent to opaque as the header scrolls up
+                    // headerTop starts at (window.innerHeight - headerHeight) and goes to 0
+                    const fadeStart = window.innerHeight - headerHeight;
+                    const fadeEnd = 0;
+                    const fadeRange = fadeStart - fadeEnd;
+                    const scrolledAmount = fadeStart - headerTop;
+                    const opacity = Math.min(Math.max(scrolledAmount / fadeRange, 0), 1);
+
+                    // Background fade
+                    overlayHeader.style.backgroundColor = `rgba(250, 249, 246, ${opacity * 0.95})`;
+                    overlayHeader.style.backdropFilter = opacity > 0 ? `blur(${opacity * 10}px)` : 'none';
+
+                    // Text color interpolation: #f7ebeb (light pink) -> #333333 (near-black)
+                    const r1 = 0xf7, g1 = 0xeb, b1 = 0xeb;
+                    const r2 = 0x33, g2 = 0x33, b2 = 0x33;
+                    const r = Math.round(r1 + (r2 - r1) * opacity);
+                    const g = Math.round(g1 + (g2 - g1) * opacity);
+                    const b = Math.round(b1 + (b2 - b1) * opacity);
+                    const textColor = `rgb(${r}, ${g}, ${b})`;
+
+                    overlayHeader.querySelectorAll('.logo, .nav-link').forEach(el => {
+                        el.style.color = textColor;
+                    });
+                    // Set underline color via dynamic style element
+                    let styleEl = document.getElementById('header-underline-style');
+                    if (!styleEl) {
+                        styleEl = document.createElement('style');
+                        styleEl.id = 'header-underline-style';
+                        document.head.appendChild(styleEl);
+                    }
+                    styleEl.textContent = `.site-header--overlay .nav-link::after { background-color: ${textColor}; }`;
+                }
             };
 
             window.addEventListener('scroll', updateHeaderState, { passive: true });
@@ -73,4 +123,3 @@
         }
     </script>
 </body>
-</html>

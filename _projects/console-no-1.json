@@ -1,0 +1,13 @@
+{
+    "title": "Console No. 1",
+    "slug": "console-no-1",
+    "category": "Tables",
+    "materials": "White Oak, Steel",
+    "dimensions": "W 48\" x D 16\" x H 30\"",
+    "featured": false,
+    "description": "A minimalist console table with a live-edge white oak top and powder-coated steel base. The organic edge contrasts with the industrial frame.",
+    "hero_image": "/assets/images/chair-wood-leather-back.jpg",
+    "images": [
+        "/assets/images/chair-wood-leather-back.jpg"
+    ]
+}
