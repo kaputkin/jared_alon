@@ -163,8 +163,6 @@ a {
 
 .header-container {
     width: 100%;
-    max-width: var(--container-max-width);
-    margin: 0 auto;
     padding: 0 2rem;
     display: flex;
     justify-content: space-between;
@@ -340,7 +338,7 @@ a {
     position: relative;
     z-index: 10;
     max-width: 420px;
-    margin-right: clamp(2rem, 8vw, 6rem);
+    margin-right: 2rem;
     padding: 0 2rem;
 }
 
