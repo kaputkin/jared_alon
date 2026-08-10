@@ -8,8 +8,10 @@ import shutil
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 TEMPLATES_DIR = os.path.join(BASE_DIR, '_templates')
 PROJECTS_DIR = os.path.join(BASE_DIR, '_projects')
+AVAILABLE_DIR = os.path.join(BASE_DIR, '_available')
 OUTPUT_DIR = BASE_DIR
 PROJECTS_OUTPUT_DIR = os.path.join(OUTPUT_DIR, 'projects')
+AVAILABLE_OUTPUT_DIR = os.path.join(OUTPUT_DIR, 'available')
 
 def load_template(name):
     path = os.path.join(TEMPLATES_DIR, name)
@@ -29,9 +31,21 @@ def load_projects():
                 projects.append(data)
         except Exception as e:
             print(f"Error reading {file_path}: {e}")
-    # Sort projects by slug or title
-    projects.sort(key=lambda x: x.get('title', ''))
+    projects.sort(key=lambda x: (x.get('order') is None, x.get('order', float('inf'))))
     return projects
+
+def load_available():
+    items = []
+    item_files = glob.glob(os.path.join(AVAILABLE_DIR, '*.json'))
+    for file_path in item_files:
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                items.append(data)
+        except Exception as e:
+            print(f"Error reading {file_path}: {e}")
+    items.sort(key=lambda x: (x.get('order') is None, x.get('order', float('inf'))))
+    return items
 
 def render_base(title, content, active_tab="", is_subpage=False, header_overlay=False, hero_content=""):
     base_html = load_template('base.html')
@@ -55,11 +69,13 @@ def render_base(title, content, active_tab="", is_subpage=False, header_overlay=
     replacements = {
         'href="/assets/': f'href="{base_path}assets/',
         'src="/assets/': f'src="{base_path}assets/',
+        'data-lightbox="/assets/': f'data-lightbox="{base_path}assets/',
         'href="/index.html': f'href="{base_path}index.html',
         'href="/projects.html': f'href="{base_path}projects.html',
         'href="/gallery.html': f'href="{base_path}gallery.html',
         'href="/about.html': f'href="{base_path}about.html',
         'href="/projects/': f'href="{base_path}projects/',
+        'href="/available/': f'href="{base_path}available/',
     }
     
     for abs_path, rel_path in replacements.items():
@@ -67,34 +83,31 @@ def render_base(title, content, active_tab="", is_subpage=False, header_overlay=
         
     return base_html
 
-def build_index(projects):
-    featured = [p for p in projects if p.get('featured', False)]
-
+def build_index(available_items):
     hero_html = """
     <section class="hero-section">
         <div class="hero-image-container">
-            <img src="/assets/images/studio-hero.png" alt="Jared Alon Studio" class="hero-image">
+            <img src="/assets/images/chain-hero.jpg" alt="Jared Alon Studio" class="hero-image">
         </div>
         <div class="hero-content">
-            <h1 class="hero-title">Contemporary Designer &amp; Custom Furniture</h1>
         </div>
     </section>
     """
     
-    # Featured grid
+    # Build grid of available items for homepage
     grid_items = []
-    for p in featured[:3]: # limit to top 3 featured
+    for item in available_items:
         grid_items.append(f"""
         <article class="project-card">
-            <a href="/projects/{p['slug']}.html" class="project-card-image-link">
-                <img src="{p['hero_image']}" alt="{p['title']}" class="project-card-image" loading="lazy">
+            <a href="/available/{item['slug']}.html" class="project-card-image-link">
+                <img src="{item['hero_image']}" alt="{item['title']}" class="project-card-image" loading="lazy">
             </a>
             <div class="project-card-info">
                 <div>
-                    <h3 class="project-card-title">{p['title']}</h3>
-                    <span class="project-card-category">{p['category']}</span>
+                    <h3 class="project-card-title">{item['title']}</h3>
+                    <span class="project-card-category">{item['price']}</span>
                 </div>
-                <a href="/projects/{p['slug']}.html" class="project-card-link">View Detail</a>
+                <a href="/available/{item['slug']}.html" class="project-card-link">View Detail</a>
             </div>
         </article>
         """)
@@ -104,10 +117,10 @@ def build_index(projects):
         <div class="container">
             <div class="section-header">
                 <div>
-                    <h2 class="section-title">Selected Work</h2>
-                    <span class="section-subtitle">Featured Studio Pieces</span>
+                    <h2 class="section-title">Available Work</h2>
+                    <span class="section-subtitle">Current Studio Collection</span>
                 </div>
-                <a href="/projects.html" class="btn btn-outline" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">View All</a>
+                <a href="/gallery.html" class="btn btn-outline" style="padding: 0.5rem 1.5rem; font-size: 0.8rem;">View All</a>
             </div>
             <div class="projects-grid">
                 {"".join(grid_items)}
@@ -118,7 +131,6 @@ def build_index(projects):
     
     full_content = featured_html
     rendered = render_base("Home", full_content, active_tab="", header_overlay=True, hero_content=hero_html)
-    # No need for nav_active_home since Home link is removed; logo already links to index
     
     with open(os.path.join(OUTPUT_DIR, 'index.html'), 'w', encoding='utf-8') as f:
         f.write(rendered)
@@ -140,6 +152,11 @@ def build_projects_list(projects):
         
     content = f"""
     <section class="section-padding container">
+        <div class="section-header">
+            <div>
+                <h1 class="section-title">Projects</h1>
+            </div>
+        </div>
         <div class="projects-grid projects-grid--tight">
             {"".join(grid_items)}
         </div>
@@ -151,6 +168,38 @@ def build_projects_list(projects):
         f.write(rendered)
     print("Built projects.html")
 
+def build_available_list(available_items):
+    grid_items = []
+    for item in available_items:
+        grid_items.append(f"""
+        <article class="project-card project-card--overlay">
+            <a href="/available/{item['slug']}.html" class="project-card-image-link">
+                <img src="{item['hero_image']}" alt="{item['title']}" class="project-card-image" loading="lazy">
+                <div class="project-card-overlay">
+                    <h3 class="project-card-title">{item['title']}</h3>
+                </div>
+            </a>
+        </article>
+        """)
+        
+    content = f"""
+    <section class="section-padding container">
+        <div class="section-header">
+            <div>
+                <h1 class="section-title">Available</h1>
+            </div>
+        </div>
+        <div class="projects-grid projects-grid--tight">
+            {"".join(grid_items)}
+        </div>
+    </section>
+    """
+    
+    rendered = render_base("Available", content, active_tab="available")
+    with open(os.path.join(OUTPUT_DIR, 'gallery.html'), 'w', encoding='utf-8') as f:
+        f.write(rendered)
+    print("Built gallery.html (Available listing)")
+
 def build_project_details(projects):
     os.makedirs(PROJECTS_OUTPUT_DIR, exist_ok=True)
     template = load_template('project.html')
@@ -158,22 +207,27 @@ def build_project_details(projects):
     for p in projects:
         # Create minor detail images HTML
         detail_images_html = ""
-        # The first image is usually the hero, detail images are the rest
         detail_images = p.get('images', [])[1:] if len(p.get('images', [])) > 1 else []
         for img_path in detail_images:
             detail_images_html += f"""
             <div class="project-detail-img-wrapper">
-                <img src="{img_path}" alt="{p['title']} Detail" class="project-detail-img" loading="lazy">
+                <a href="{img_path}" data-lightbox="{img_path}" alt="{p['title']} Detail">
+                    <img src="{img_path}" alt="{p['title']} Detail" class="project-detail-img" loading="lazy">
+                </a>
             </div>
             """
+        
+        # Build note HTML if present
+        note_html = ""
+        if p.get('note'):
+            note_html = f'<em style="color: var(--color-text-muted);">{p["note"]}</em>'
             
         # Render project content
         project_content = template
         project_content = project_content.replace("{{title}}", p.get('title', ''))
         project_content = project_content.replace("{{category}}", p.get('category', ''))
         project_content = project_content.replace("{{description}}", p.get('description', ''))
-        project_content = project_content.replace("{{materials}}", p.get('materials', ''))
-        project_content = project_content.replace("{{dimensions}}", p.get('dimensions', ''))
+        project_content = project_content.replace("{{note_html}}", note_html)
         project_content = project_content.replace("{{hero_image}}", p.get('hero_image', ''))
         project_content = project_content.replace("{{project_images}}", detail_images_html)
         
@@ -184,65 +238,51 @@ def build_project_details(projects):
             f.write(rendered)
         print(f"Built projects/{p['slug']}.html")
 
-def build_gallery(projects):
-    # Collect all images from all projects, plus standard names
-    gallery_items = []
+def build_available_details(available_items):
+    os.makedirs(AVAILABLE_OUTPUT_DIR, exist_ok=True)
+    template = load_template('available.html')
     
-    # Predefined descriptions for images to give an artisanal editorial touch
-    captions = {
-        "chair-wood-leather-back.jpg": "Chair No. 1 - Profile",
-        "chair-wood-leather-detail.jpg": "Chair No. 1 - Joint Detail",
-        "chair-blue-cork.jpg": "Chair No. 2 - Plywood & Cork",
-        "daybed-detail.jpg": "Daybed No. 1 - Walnut Frame Detail"
-    }
-    
-    # Search for all image files in assets/images/
-    images_dir = os.path.join(BASE_DIR, 'assets', 'images')
-    if os.path.exists(images_dir):
-        for img_name in sorted(os.listdir(images_dir)):
-            if img_name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.webp')):
-                caption = captions.get(img_name, img_name.replace('-', ' ').split('.')[0].title())
-                gallery_items.append({
-                    "src": f"/assets/images/{img_name}",
-                    "caption": caption
-                })
-                
-    grid_items = []
-    for item in gallery_items:
-        grid_items.append(f"""
-        <div class="gallery-item">
-            <img src="{item['src']}" alt="{item['caption']}" class="gallery-img" loading="lazy">
-            <div class="gallery-overlay">
-                <span class="gallery-caption">{item['caption']}</span>
+    for item in available_items:
+        # Create minor detail images HTML
+        detail_images_html = ""
+        detail_images = item.get('images', [])[1:] if len(item.get('images', [])) > 1 else []
+        for img_path in detail_images:
+            detail_images_html += f"""
+            <div class="project-detail-img-wrapper">
+                <a href="{img_path}" data-lightbox="{img_path}" alt="{item['title']} Detail">
+                    <img src="{img_path}" alt="{item['title']} Detail" class="project-detail-img" loading="lazy">
+                </a>
             </div>
-        </div>
-        """)
+            """
         
-    content = f"""
-    <section class="section-padding container">
-        <div class="section-header">
-            <div>
-                <h1 class="section-title">Gallery</h1>
-                <span class="section-subtitle">Visuals from the Workshop & Collection</span>
-            </div>
-        </div>
-        <div class="gallery-grid">
-            {"".join(grid_items)}
-        </div>
-    </section>
-    """
-    
-    rendered = render_base("Available", content, active_tab="available")
-    with open(os.path.join(OUTPUT_DIR, 'gallery.html'), 'w', encoding='utf-8') as f:
-        f.write(rendered)
-    print("Built gallery.html")
+        # Build notes HTML if present
+        notes_html = ""
+        if item.get('notes'):
+            notes_html = f'<p style="font-style: italic;">{item["notes"]}</p>'
+        
+        # Render available content
+        item_content = template
+        item_content = item_content.replace("{{title}}", item.get('title', ''))
+        item_content = item_content.replace("{{description}}", item.get('description', ''))
+        item_content = item_content.replace("{{notes_html}}", notes_html)
+        item_content = item_content.replace("{{dimensions}}", item.get('dimensions', ''))
+        item_content = item_content.replace("{{price}}", item.get('price', ''))
+        item_content = item_content.replace("{{hero_image}}", item.get('hero_image', ''))
+        item_content = item_content.replace("{{available_images}}", detail_images_html)
+        
+        rendered = render_base(item.get('title', ''), item_content, active_tab="available", is_subpage=True)
+        
+        out_path = os.path.join(AVAILABLE_OUTPUT_DIR, f"{item['slug']}.html")
+        with open(out_path, 'w', encoding='utf-8') as f:
+            f.write(rendered)
+        print(f"Built available/{item['slug']}.html")
 
 def build_about():
     content = """
     <section class="about-section container">
         <div class="about-grid">
             <div class="about-image-wrapper">
-                <img src="/assets/images/chair-wood-leather-back.jpg" alt="Jared Alon Studio" class="about-image">
+                <img src="/assets/images/jared.png" alt="Jared Alon Studio" class="about-image">
             </div>
             <div class="about-content">
                 <h1>The Studio</h1>
@@ -282,12 +322,14 @@ def build_about():
 def main():
     print("Starting static site build...")
     projects = load_projects()
-    print(f"Loaded {len(projects)} projects.")
+    available_items = load_available()
+    print(f"Loaded {len(projects)} projects and {len(available_items)} available items.")
     
-    build_index(projects)
+    build_index(available_items)
     build_projects_list(projects)
     build_project_details(projects)
-    build_gallery(projects)
+    build_available_list(available_items)
+    build_available_details(available_items)
     build_about()
     
     print("Static site build completed successfully!")

@@ -1,0 +1,52 @@
+<section class="project-detail-section">
+    <div class="container">
+        <div class="project-detail-header">
+            <a href="/gallery.html" class="back-link">&larr; Back to Available</a>
+        </div>
+
+        <div class="project-header-mobile">
+            <span class="project-category">Available</span>
+            <h1 class="project-title">{{title}}</h1>
+        </div>
+
+        <div class="project-detail-grid">
+            <div class="project-gallery">
+                <div class="project-hero-img-wrapper">
+                    <a href="{{hero_image}}" data-lightbox="{{hero_image}}" alt="{{title}}">
+                        <img src="{{hero_image}}" alt="{{title}}" class="project-hero-img">
+                    </a>
+                </div>
+                <div class="project-images-grid">
+                    {{available_images}}
+                </div>
+            </div>
+
+            <div class="project-info">
+                <div class="project-header-desktop">
+                    <span class="project-category">Available</span>
+                    <h1 class="project-title">{{title}}</h1>
+                </div>
+
+                <div class="project-description">
+                    <p>{{description}}</p>
+                    {{notes_html}}
+                </div>
+
+                <div class="project-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Dimensions</span>
+                        <span class="spec-value">{{dimensions}}</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Price</span>
+                        <span class="spec-value">{{price}}</span>
+                    </div>
+                </div>
+
+                <div class="project-inquire">
+                    <a href="/about.html#contact" class="btn btn-primary">Inquire About This Piece</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

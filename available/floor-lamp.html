@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Jared Alon - Handcrafted furniture design and studio portfolio. Modern, sculptural, and heirloom-quality solid-wood furniture.">
+    <title>Floor Lamp | Jared Alon</title>
+    <!-- Google Fonts: Poppins (Body) and Jost (Futura-like alternative for fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Poppins:wght@200;300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body class="">
+    
+    <main class="main-content">
+        <header class="site-header ">
+            <div class="header-container">
+                <a href="../index.html" class="logo">JARED ALON</a>
+                <button class="mobile-nav-toggle" aria-label="Toggle navigation" aria-expanded="false" id="menuToggle">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <nav class="nav-menu" id="navMenu">
+                    <a href="../projects.html" class="nav-link ">Projects</a>
+                    <a href="../gallery.html" class="nav-link active">Available</a>
+                    <a href="../about.html" class="nav-link ">About</a>
+                </nav>
+            </div>
+        </header>
+        <section class="project-detail-section">
+    <div class="container">
+        <div class="project-detail-header">
+            <a href="../gallery.html" class="back-link">&larr; Back to Available</a>
+        </div>
+
+        <div class="project-header-mobile">
+            <span class="project-category">Available</span>
+            <h1 class="project-title">Floor Lamp</h1>
+        </div>
+
+        <div class="project-detail-grid">
+            <div class="project-gallery">
+                <div class="project-hero-img-wrapper">
+                    <a href="../assets/images/floor_lamp1.png" data-lightbox="../assets/images/floor_lamp1.png" alt="Floor Lamp">
+                        <img src="../assets/images/floor_lamp1.png" alt="Floor Lamp" class="project-hero-img">
+                    </a>
+                </div>
+                <div class="project-images-grid">
+                    
+            <div class="project-detail-img-wrapper">
+                <a href="../assets/images/floor_lamp2.png" data-lightbox="../assets/images/floor_lamp2.png" alt="Floor Lamp Detail">
+                    <img src="../assets/images/floor_lamp2.png" alt="Floor Lamp Detail" class="project-detail-img" loading="lazy">
+                </a>
+            </div>
+            
+                </div>
+            </div>
+
+            <div class="project-info">
+                <div class="project-header-desktop">
+                    <span class="project-category">Available</span>
+                    <h1 class="project-title">Floor Lamp</h1>
+                </div>
+
+                <div class="project-description">
+                    <p>Shown in Maple and coral.</p>
+                    <p style="font-style: italic;">LED</p>
+                </div>
+
+                <div class="project-specs">
+                    <div class="spec-item">
+                        <span class="spec-label">Dimensions</span>
+                        <span class="spec-value">20" x 65"</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Price</span>
+                        <span class="spec-value">Starting at $5500</span>
+                    </div>
+                </div>
+
+                <div class="project-inquire">
+                    <a href="../about.html#contact" class="btn btn-primary">Inquire About This Piece</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+        <footer class="site-footer">
+            <div class="footer-container">
+                <div class="footer-brand">
+                    <h3>JARED ALON</h3>
+                    <p>Furniture Design & Craftsmanship</p>
+                </div>
+                <div class="footer-meta">
+                    <p>&copy; 2026 Jared Alon. All rights reserved.</p>
+                    <p>Handcrafted in Hudson Valley, NY</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Lightbox Overlay -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <img class="lightbox-img" src="" alt="">
+    </div>
+
+    <script>
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('.lightbox-img');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+        document.addEventListener('click', (e) => {
+            const trigger = e.target.closest('[data-lightbox]');
+            if (trigger) {
+                e.preventDefault();
+                lightboxImg.src = trigger.getAttribute('data-lightbox');
+                lightboxImg.alt = trigger.getAttribute('alt') || '';
+                lightbox.classList.add('lightbox--open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('lightbox--open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
+        };
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Mobile Navigation Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        menuToggle.addEventListener('click', () => {
+            const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+            menuToggle.setAttribute('aria-expanded', !expanded);
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Home hero: header starts at bottom of viewport, scrolls up over hero
+        const overlayHeader = document.querySelector('.site-header--overlay');
+        const heroSection = document.querySelector('.hero-section');
+
+        if (overlayHeader && heroSection) {
+            const updateHeaderState = () => {
+                const headerTop = overlayHeader.getBoundingClientRect().top;
+                const headerHeight = overlayHeader.offsetHeight;
+
+                // Header is "scrolled" when it's stuck at the top of the viewport
+                const isScrolled = headerTop <= 0;
+                overlayHeader.classList.toggle('site-header--scrolled', isScrolled);
+
+                if (isScrolled) {
+                    // When pinned at top, let CSS handle everything via site-header--scrolled
+                    overlayHeader.style.backgroundColor = '';
+                    overlayHeader.style.backdropFilter = '';
+                    overlayHeader.querySelectorAll('.logo, .nav-link').forEach(el => {
+                        el.style.color = '';
+                    });
+                    let styleEl = document.getElementById('header-underline-style');
+                    if (styleEl) styleEl.remove();
+                } else {
+                    // Header stays white at the bottom of the viewport
+                    overlayHeader.style.backgroundColor = '#FAF9F6';
+                    overlayHeader.style.backdropFilter = 'none';
+
+                    // Text stays dark on the white header
+                    overlayHeader.querySelectorAll('.logo, .nav-link').forEach(el => {
+                        el.style.color = '#333333';
+                    });
+                    // Set underline color via dynamic style element
+                    let styleEl = document.getElementById('header-underline-style');
+                    if (!styleEl) {
+                        styleEl = document.createElement('style');
+                        styleEl.id = 'header-underline-style';
+                        document.head.appendChild(styleEl);
+                    }
+                    styleEl.textContent = `.site-header--overlay .nav-link::after { background-color: #333333; }`;
+                }
+            };
+
+            window.addEventListener('scroll', updateHeaderState, { passive: true });
+            window.addEventListener('resize', updateHeaderState);
+            updateHeaderState();
+        }
+    </script>
+</body>

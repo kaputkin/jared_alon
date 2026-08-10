@@ -1,0 +1,14 @@
+{
+    "title": "Claremont Dining Chair",
+    "slug": "claremont-dining-chair",
+    "order": 1,
+    "description": "Shown in Maple with coral merino felt. Available in maple, walnut, ash and oak.",
+    "notes": "Additional felt colors available upon request",
+    "dimensions": "32\" Tall, 20\" Wide, 20\" Deep",
+    "price": "Starting at $1450",
+    "hero_image": "/assets/images/dining-chair-coral-felt-1.png",
+    "images": [
+        "/assets/images/dining-chair-coral-felt-1.png",
+        "/assets/images/dining-chair-details.png"
+    ]
+}

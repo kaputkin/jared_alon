@@ -1,0 +1,14 @@
+{
+    "title": "Floor Lamp",
+    "slug": "floor-lamp",
+    "order": 3,
+    "description": "Shown in Maple and coral.",
+    "notes": "LED",
+    "dimensions": "20\" x 65\"",
+    "price": "Starting at $5500",
+    "hero_image": "/assets/images/floor_lamp1.png",
+    "images": [
+        "/assets/images/floor_lamp1.png",
+        "/assets/images/floor_lamp2.png"
+    ]
+}

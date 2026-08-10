@@ -37,7 +37,7 @@
     <section class="about-section container">
         <div class="about-grid">
             <div class="about-image-wrapper">
-                <img src="assets/images/chair-wood-leather-back.jpg" alt="Jared Alon Studio" class="about-image">
+                <img src="assets/images/jared.png" alt="Jared Alon Studio" class="about-image">
             </div>
             <div class="about-content">
                 <h1>The Studio</h1>
@@ -82,7 +82,45 @@
         </footer>
     </main>
 
+    <!-- Lightbox Overlay -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <img class="lightbox-img" src="" alt="">
+    </div>
+
     <script>
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('.lightbox-img');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+        document.addEventListener('click', (e) => {
+            const trigger = e.target.closest('[data-lightbox]');
+            if (trigger) {
+                e.preventDefault();
+                lightboxImg.src = trigger.getAttribute('data-lightbox');
+                lightboxImg.alt = trigger.getAttribute('alt') || '';
+                lightbox.classList.add('lightbox--open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('lightbox--open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
+        };
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
         // Mobile Navigation Toggle
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
@@ -117,28 +155,13 @@
                     let styleEl = document.getElementById('header-underline-style');
                     if (styleEl) styleEl.remove();
                 } else {
-                    // Fade from transparent to opaque as the header scrolls up
-                    // headerTop starts at (window.innerHeight - headerHeight) and goes to 0
-                    const fadeStart = window.innerHeight - headerHeight;
-                    const fadeEnd = 0;
-                    const fadeRange = fadeStart - fadeEnd;
-                    const scrolledAmount = fadeStart - headerTop;
-                    const opacity = Math.min(Math.max(scrolledAmount / fadeRange, 0), 1);
+                    // Header stays white at the bottom of the viewport
+                    overlayHeader.style.backgroundColor = '#FAF9F6';
+                    overlayHeader.style.backdropFilter = 'none';
 
-                    // Background fade
-                    overlayHeader.style.backgroundColor = `rgba(250, 249, 246, ${opacity * 0.95})`;
-                    overlayHeader.style.backdropFilter = opacity > 0 ? `blur(${opacity * 10}px)` : 'none';
-
-                    // Text color interpolation: #f7ebeb (light pink) -> #333333 (near-black)
-                    const r1 = 0xf7, g1 = 0xeb, b1 = 0xeb;
-                    const r2 = 0x33, g2 = 0x33, b2 = 0x33;
-                    const r = Math.round(r1 + (r2 - r1) * opacity);
-                    const g = Math.round(g1 + (g2 - g1) * opacity);
-                    const b = Math.round(b1 + (b2 - b1) * opacity);
-                    const textColor = `rgb(${r}, ${g}, ${b})`;
-
+                    // Text stays dark on the white header
                     overlayHeader.querySelectorAll('.logo, .nav-link').forEach(el => {
-                        el.style.color = textColor;
+                        el.style.color = '#333333';
                     });
                     // Set underline color via dynamic style element
                     let styleEl = document.getElementById('header-underline-style');
@@ -147,7 +170,7 @@
                         styleEl.id = 'header-underline-style';
                         document.head.appendChild(styleEl);
                     }
-                    styleEl.textContent = `.site-header--overlay .nav-link::after { background-color: ${textColor}; }`;
+                    styleEl.textContent = `.site-header--overlay .nav-link::after { background-color: #333333; }`;
                 }
             };
 

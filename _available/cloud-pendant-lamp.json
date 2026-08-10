@@ -1,0 +1,13 @@
+{
+    "title": "Cloud Pendant Lamp",
+    "slug": "cloud-pendant-lamp",
+    "order": 2,
+    "description": "Shown in maple with black cloth cord.",
+    "notes": "Dimmable LED",
+    "dimensions": "Dimensions TBD",
+    "price": "Starting at $3500",
+    "hero_image": "/assets/images/cloud_lamp.png",
+    "images": [
+        "/assets/images/cloud_lamp.png"
+    ]
+}

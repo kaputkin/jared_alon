@@ -35,58 +35,45 @@
         </header>
         
     <section class="section-padding container">
+        <div class="section-header">
+            <div>
+                <h1 class="section-title">Projects</h1>
+            </div>
+        </div>
         <div class="projects-grid projects-grid--tight">
             
         <article class="project-card project-card--overlay">
-            <a href="projects/chair-no-1.html" class="project-card-image-link">
-                <img src="assets/images/chair-wood-leather-back.jpg" alt="Chair No. 1" class="project-card-image" loading="lazy">
+            <a href="projects/disco-napoli.html" class="project-card-image-link">
+                <img src="assets/images/DiscoNapoliServerStation.png" alt="Disco Napoli" class="project-card-image" loading="lazy">
                 <div class="project-card-overlay">
-                    <h3 class="project-card-title">Chair No. 1</h3>
+                    <h3 class="project-card-title">Disco Napoli</h3>
                 </div>
             </a>
         </article>
         
         <article class="project-card project-card--overlay">
-            <a href="projects/chair-no-2.html" class="project-card-image-link">
-                <img src="assets/images/chair-blue-cork.jpg" alt="Chair No. 2" class="project-card-image" loading="lazy">
+            <a href="projects/manhattan-residence.html" class="project-card-image-link">
+                <img src="assets/images/Whitagram-Image (1).JPG" alt="Manhattan Residence" class="project-card-image" loading="lazy">
                 <div class="project-card-overlay">
-                    <h3 class="project-card-title">Chair No. 2</h3>
+                    <h3 class="project-card-title">Manhattan Residence</h3>
                 </div>
             </a>
         </article>
         
         <article class="project-card project-card--overlay">
-            <a href="projects/console-no-1.html" class="project-card-image-link">
-                <img src="assets/images/chair-wood-leather-back.jpg" alt="Console No. 1" class="project-card-image" loading="lazy">
+            <a href="projects/cornwall-collective.html" class="project-card-image-link">
+                <img src="assets/images/comingsoon.png" alt="Cornwall Collective" class="project-card-image" loading="lazy">
                 <div class="project-card-overlay">
-                    <h3 class="project-card-title">Console No. 1</h3>
+                    <h3 class="project-card-title">Cornwall Collective</h3>
                 </div>
             </a>
         </article>
         
         <article class="project-card project-card--overlay">
-            <a href="projects/daybed-no-1.html" class="project-card-image-link">
-                <img src="assets/images/daybed-detail.jpg" alt="Daybed No. 1" class="project-card-image" loading="lazy">
+            <a href="projects/golden-hour-grocery.html" class="project-card-image-link">
+                <img src="assets/images/comingsoon.png" alt="Golden Hour Grocery" class="project-card-image" loading="lazy">
                 <div class="project-card-overlay">
-                    <h3 class="project-card-title">Daybed No. 1</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="project-card project-card--overlay">
-            <a href="projects/side-table-no-1.html" class="project-card-image-link">
-                <img src="assets/images/chair-wood-leather-detail.jpg" alt="Side Table No. 1" class="project-card-image" loading="lazy">
-                <div class="project-card-overlay">
-                    <h3 class="project-card-title">Side Table No. 1</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="project-card project-card--overlay">
-            <a href="projects/totem-lamp.html" class="project-card-image-link">
-                <img src="assets/images/totem-lamp.jpg" alt="Totem Lamp" class="project-card-image" loading="lazy">
-                <div class="project-card-overlay">
-                    <h3 class="project-card-title">Totem Lamp</h3>
+                    <h3 class="project-card-title">Golden Hour Grocery</h3>
                 </div>
             </a>
         </article>
@@ -108,7 +95,45 @@
         </footer>
     </main>
 
+    <!-- Lightbox Overlay -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <img class="lightbox-img" src="" alt="">
+    </div>
+
     <script>
+        // Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = lightbox.querySelector('.lightbox-img');
+        const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+        document.addEventListener('click', (e) => {
+            const trigger = e.target.closest('[data-lightbox]');
+            if (trigger) {
+                e.preventDefault();
+                lightboxImg.src = trigger.getAttribute('data-lightbox');
+                lightboxImg.alt = trigger.getAttribute('alt') || '';
+                lightbox.classList.add('lightbox--open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+
+        const closeLightbox = () => {
+            lightbox.classList.remove('lightbox--open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
+        };
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
         // Mobile Navigation Toggle
         const menuToggle = document.getElementById('menuToggle');
         const navMenu = document.getElementById('navMenu');
@@ -143,28 +168,13 @@
                     let styleEl = document.getElementById('header-underline-style');
                     if (styleEl) styleEl.remove();
                 } else {
-                    // Fade from transparent to opaque as the header scrolls up
-                    // headerTop starts at (window.innerHeight - headerHeight) and goes to 0
-                    const fadeStart = window.innerHeight - headerHeight;
-                    const fadeEnd = 0;
-                    const fadeRange = fadeStart - fadeEnd;
-                    const scrolledAmount = fadeStart - headerTop;
-                    const opacity = Math.min(Math.max(scrolledAmount / fadeRange, 0), 1);
+                    // Header stays white at the bottom of the viewport
+                    overlayHeader.style.backgroundColor = '#FAF9F6';
+                    overlayHeader.style.backdropFilter = 'none';
 
-                    // Background fade
-                    overlayHeader.style.backgroundColor = `rgba(250, 249, 246, ${opacity * 0.95})`;
-                    overlayHeader.style.backdropFilter = opacity > 0 ? `blur(${opacity * 10}px)` : 'none';
-
-                    // Text color interpolation: #f7ebeb (light pink) -> #333333 (near-black)
-                    const r1 = 0xf7, g1 = 0xeb, b1 = 0xeb;
-                    const r2 = 0x33, g2 = 0x33, b2 = 0x33;
-                    const r = Math.round(r1 + (r2 - r1) * opacity);
-                    const g = Math.round(g1 + (g2 - g1) * opacity);
-                    const b = Math.round(b1 + (b2 - b1) * opacity);
-                    const textColor = `rgb(${r}, ${g}, ${b})`;
-
+                    // Text stays dark on the white header
                     overlayHeader.querySelectorAll('.logo, .nav-link').forEach(el => {
-                        el.style.color = textColor;
+                        el.style.color = '#333333';
                     });
                     // Set underline color via dynamic style element
                     let styleEl = document.getElementById('header-underline-style');
@@ -173,7 +183,7 @@
                         styleEl.id = 'header-underline-style';
                         document.head.appendChild(styleEl);
                     }
-                    styleEl.textContent = `.site-header--overlay .nav-link::after { background-color: ${textColor}; }`;
+                    styleEl.textContent = `.site-header--overlay .nav-link::after { background-color: #333333; }`;
                 }
             };
 

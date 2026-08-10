@@ -1,0 +1,11 @@
+{
+    "title": "Manhattan Residence",
+    "slug": "manhattan-residence",
+    "order": 4,
+    "category": "Residential",
+    "description": "Walnut dining table and walnut writing desk awaiting marble top",
+    "hero_image": "/assets/images/Whitagram-Image (1).JPG",
+    "images": [
+        "/assets/images/Whitagram-Image.JPG"
+    ]
+}

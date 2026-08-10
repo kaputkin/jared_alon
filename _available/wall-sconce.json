@@ -1,0 +1,17 @@
+{
+    "title": "Wall Sconce",
+    "slug": "wall-sconce",
+    "order": 4,
+    "description": "Shown in maple with coral cord.",
+    "notes": "Touch sensing dimmable LED",
+    "dimensions": "6\" x 10\"",
+    "price": "Starting at $1250",
+    "hero_image": "/assets/images/sconce1.jpg",
+    "images": [
+        "/assets/images/sconce1.jpg",
+        "/assets/images/sconce2.jpg",
+        "/assets/images/sconce3.jpg",
+        "/assets/images/sconce4.jpg",
+        "/assets/images/sconce5.jpg"
+    ]
+}
